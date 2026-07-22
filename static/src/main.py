@@ -1,10 +1,12 @@
-from textnode import TextNodeType
+from textnode import TextType
+from textnode import TextNode
+from enum import Enum
 
 print("hello world")
 
 
 def main():
-    message = TextNodeType("Some text,", "Some more text", "https://www.boot.dev")
+    message = TextNode("Some text", TextType.LINK, "https://www.boot.dev")
     print(message)
 
 
