@@ -3,9 +3,9 @@ from textnode import TextNode, TextType
 
 class TestTextNode(unittest.TestCase):
     def test_eq(self):
-        node = TextNode("This is a text node", TextType.BOLD)
+        node1 = TextNode("This is a text node", TextType.BOLD)
         node2 = TextNode("This is a text node", TextType.BOLD)
-        self.assertEqual(node, node2)
+        self.assertEqual(node1, node2)
 
     def test_eq_url(self):
         node9 = TextNode("This is a text node", TextType.CODE, url="https://boot.dev")

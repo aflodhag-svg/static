@@ -1,6 +1,5 @@
 from textnode import TextType
 from textnode import TextNode
-from enum import Enum
 
 print("hello world")
 
