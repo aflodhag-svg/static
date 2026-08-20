@@ -1,6 +1,6 @@
 import unittest
-from htmlnode import HTMLNode
 
+from htmlnode import HTMLNode
 
 props1 = {"meat": "pork"}
 props2 = {

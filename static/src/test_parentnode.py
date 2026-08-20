@@ -1,7 +1,6 @@
 import unittest
-from htmlnode import HTMLNode, ParentNode, LeafNode
 
-
+from htmlnode import LeafNode, ParentNode
 
 props1 = {"meat": "pork"}
 props2 = {

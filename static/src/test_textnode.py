@@ -1,6 +1,7 @@
 import unittest
+
 from textnode import TextNode, TextType, text_node_to_html_node
-from htmlnode import HTMLNode, LeafNode, ParentNode
+
 
 class TestTextNode(unittest.TestCase):
     def test_eq(self):
@@ -74,6 +75,7 @@ class TestTextNode(unittest.TestCase):
     def test_wrong_text_type(self):
         with self.assertRaises(AttributeError):
             node = TextNode("This is all wrong", TextType.WRONG)
+            text_node_to_html_node(node)
 
     def test_text_invalid_type(self):
         node = TextNode("This is a text node", TextType.ITALIC)
