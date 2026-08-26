@@ -1,5 +1,5 @@
 import unittest
-import re
+
 from extract_markdown_images import extract_markdown_images, extract_markdown_links
 
 
