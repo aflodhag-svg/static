@@ -1,5 +1,5 @@
 from extract_markdown_images import extract_markdown_images, extract_markdown_links
-from textnode import TextNode, TextType
+from textnode import TextNode, TextType, BlockType
 
 
 def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: TextType) -> list[TextNode]:
@@ -11,7 +11,7 @@ def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: 
             continue
         new_nodes = node.text.split(delimiter)
         if len(new_nodes) % 2 == 0:
-            raise Exception("No closing delimiter")
+            raise ValueError("No closing delimiter")
         for i, v in enumerate(new_nodes):
             if v == "":
                 continue
@@ -101,3 +101,34 @@ def markdown_to_blocks(markdown):
         if item != "":
             output_list.append(item)
     return output_list
+
+
+def block_to_block_type(block: str):
+    split_block = block.split("\n")
+
+    # Checking number of ¤ in headings, ensuring it is 1-6
+    if block.startswith(("# ", "## ", "### ", "#### ", "##### ", "###### ")):
+        return BlockType.HEADING
+
+    if len(split_block) > 1 and split_block[0].startswith("```") and split_block[-1].startswith("```"):
+        return BlockType.CODE
+
+    if all(line.startswith(">") for line in split_block):
+        return BlockType.QUOTE
+
+    if all(line.startswith("- ") for line in split_block):
+            return BlockType.UNORDERED_LIST
+
+    if block.startswith("1. "):
+        ordered_list = True
+        i = 1
+        for line in split_block:
+            if not line.startswith(f'{i}. '):
+                ordered_list = False
+            i += 1
+        if ordered_list == True:
+            return BlockType.ORDERED_LIST
+
+
+
+    return BlockType.PARAGRAPH
