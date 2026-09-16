@@ -1,11 +1,7 @@
-import re
 import unittest
 
 from split_delimiter import split_nodes_link
 from textnode import TextNode, TextType
-
-
-
 
 
 class TestSplitNodesLink(unittest.TestCase):
@@ -68,14 +64,10 @@ class TestSplitNodesLink(unittest.TestCase):
 
     def test_empty_anchor_text(self):
         node = TextNode(
-            "Click [] (https://example.com) here",
-            TextType.TEXT,
-        )
-        node_clean = TextNode(
             "Click [](https://example.com) here",
             TextType.TEXT,
-        )
-        new_nodes = split_nodes_link([node_clean])
+            )
+        new_nodes = split_nodes_link([node])
         self.assertEqual(
             new_nodes,
             [

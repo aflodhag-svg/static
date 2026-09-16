@@ -74,13 +74,13 @@ class TestTextNode(unittest.TestCase):
 
     def test_wrong_text_type(self):
         with self.assertRaises(AttributeError):
-            node = TextNode("This is all wrong", TextType.WRONG)
+            node = TextNode("This is all wrong", TextType.WRONG) # type: ignore
             text_node_to_html_node(node)
 
     def test_text_invalid_type(self):
         node = TextNode("This is a text node", TextType.ITALIC)
-        node.text_type = "help"
-        with self.assertRaises(Exception):
+        node.text_type = "help" # type: ignore[assignment]
+        with self.assertRaises(ValueError):
             text_node_to_html_node(node)
 
 

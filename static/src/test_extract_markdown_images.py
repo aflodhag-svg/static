@@ -48,3 +48,7 @@ class TestMarkdownParser(unittest.TestCase):
     def test_extract_markdown_links_no_matches(self):
         text = "Just plain text without links."
         self.assertEqual(extract_markdown_links(text), [])
+
+
+if __name__ == "__main__":
+    unittest.main()

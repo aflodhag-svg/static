@@ -1,4 +1,5 @@
 import unittest
+
 from split_delimiter import block_to_block_type
 from textnode import BlockType
 

@@ -53,3 +53,7 @@ This is the same paragraph on a new line
     def test_empty_string(self):
         self.assertEqual(markdown_to_blocks(""), [])
         self.assertEqual(markdown_to_blocks("   \n\n  "), [])
+
+
+if __name__ == "__main__":
+    unittest.main()

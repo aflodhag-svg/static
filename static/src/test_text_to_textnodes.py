@@ -1,7 +1,7 @@
 import unittest
 
-from textnode import TextNode, TextType
 from split_delimiter import text_to_textnodes
+from textnode import TextNode, TextType
 
 
 class TestTextToTextnodes(unittest.TestCase):
@@ -41,3 +41,6 @@ class TestTextToTextnodes(unittest.TestCase):
     def test_only_link(self):
         text = "[link](https://boot.dev)"
         self.assertEqual(text_to_textnodes(text), [TextNode("link", TextType.LINK, "https://boot.dev")])
+
+if __name__ == "__main__":
+    unittest.main()

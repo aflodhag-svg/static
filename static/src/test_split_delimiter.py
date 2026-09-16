@@ -42,5 +42,8 @@ class TestSplitDelimiter(unittest.TestCase):
 
     def test_exception(self):
         to_test = [TextNode("This is some ``code` text", TextType.TEXT)]
-        with self.assertRaises(Exception):
+        with self.assertRaises(ValueError):
             split_nodes_delimiter(to_test, "`", TextType.CODE)
+
+if __name__ == "__main__":
+    unittest.main()

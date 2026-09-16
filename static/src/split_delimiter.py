@@ -1,5 +1,5 @@
 from extract_markdown_images import extract_markdown_images, extract_markdown_links
-from textnode import TextNode, TextType, BlockType
+from textnode import BlockType, TextNode, TextType
 
 
 def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: TextType) -> list[TextNode]:
@@ -105,30 +105,22 @@ def markdown_to_blocks(markdown):
 
 def block_to_block_type(block: str):
     split_block = block.split("\n")
-
-    # Checking number of ¤ in headings, ensuring it is 1-6
+    # Checking for hashtags in block; if between 1-6 followed by a space, it is a heading. Otherwise, move on.
     if block.startswith(("# ", "## ", "### ", "#### ", "##### ", "###### ")):
         return BlockType.HEADING
-
+    # Checking if the block starts and ends with backticks, and is multiline, in which case it is code. Otherwise, move on.
     if len(split_block) > 1 and split_block[0].startswith("```") and split_block[-1].startswith("```"):
         return BlockType.CODE
-
+    # Checking if all lines starts with >, in which case it is a quote block; otherwise, not.
     if all(line.startswith(">") for line in split_block):
         return BlockType.QUOTE
-
+    # Checking if all lines starts with a ash and a space, in which case it is an unordered list. Otherwise, moves on.
     if all(line.startswith("- ") for line in split_block):
             return BlockType.UNORDERED_LIST
-
-    if block.startswith("1. "):
-        ordered_list = True
-        i = 1
-        for line in split_block:
-            if not line.startswith(f'{i}. '):
-                ordered_list = False
-            i += 1
-        if ordered_list == True:
+    # Checking if the first line starts with 1. and all following lines increment the number by 1,
+    #  in which case it is an ordered list. Otherwise, move to the final check
+    if block.startswith("1. ") and all(
+        line.startswith(f"{i}. ") for i, line in enumerate(split_block, start=1)):
             return BlockType.ORDERED_LIST
-
-
-
+    # If none of the above, then it is a paragraph!
     return BlockType.PARAGRAPH

@@ -7,8 +7,8 @@ props2 = {
         "meat": "pork",
         "horse": "carriage",
         "fruit": "banana"}
-children1 = ["some_child_node"]
-children2 = ["some_child_node", "some_child_node_two"]
+children1 = [HTMLNode("some_child_node")]
+children2 = [HTMLNode("some_child_node", "some_child_node_two")]
 
 class TestHTMLNode(unittest.TestCase):
     def test_eq_empty(self):
@@ -38,3 +38,6 @@ class TestHTMLNode(unittest.TestCase):
     def test_props_to_html2(self):
         node10 = HTMLNode("test", "1", children1, props2)
         self.assertEqual(node10.props_to_html(), ' meat="pork" horse="carriage" fruit="banana"')
+
+if __name__ == "__main__":
+    unittest.main()

@@ -1,9 +1,7 @@
-import re
 import unittest
 
 from split_delimiter import split_nodes_image
 from textnode import TextNode, TextType
-
 
 
 class TestSplitNodesImage(unittest.TestCase):
