@@ -17,7 +17,6 @@ This is the same paragraph on a new line
 - with items
 """
         blocks = markdown_to_blocks(md)
-        print(blocks)
         self.assertEqual(
             blocks,
             [

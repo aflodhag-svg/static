@@ -1,17 +1,18 @@
+from collections.abc import Sequence
 from typing import override
 
 
 class HTMLNode:
     tag: str | None
     value: str | None
-    children: list["HTMLNode"] | None
+    children: Sequence["HTMLNode"] | None
     props: dict[str, str] | None
 
     def __init__(
         self,
         tag: str | None = None,
         value: str | None = None,
-        children: list["HTMLNode"] | None = None,
+        children: Sequence["HTMLNode"] | None = None,
         props: dict[str, str] | None = None,
     ) -> None:
 
@@ -32,7 +33,7 @@ class HTMLNode:
         return result
     @override
     def __repr__(self) -> str:
-        return f'HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})'
+        return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})"
 
     @override
     def __eq__(self, other: object) -> bool:
@@ -45,54 +46,69 @@ class HTMLNode:
                 and self.props == other.props
         )
 
+    @override
+    def __hash__(self) -> int:
+        message = "HTMLNode's should never be hashed."
+        raise TypeError(message)
 
 class LeafNode(HTMLNode):
     def __init__(self,
         tag: str | None,
         value: str | None,
-        props: dict[str, str] | None = None
-    ):
+        props: dict[str, str] | None = None,
+    ) -> None:
         super().__init__(tag=tag, value=value, children=None, props=props)
 
     @override
     def to_html(self) -> str:
         if self.value is None:
-            raise ValueError("No value")
+            message = "LeafNodes to_html was not provided with a value"
+            raise ValueError(message)
         if self.tag is None:
             return str(self.value)
-        return f'<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>'
+        return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
 
     @override
-    def __repr__(self):
-        return f'LeafNode({self.tag}, {self.value}, {self.props})'
+    def __repr__(self) -> str:
+        return f"LeafNode({self.tag}, {self.value}, {self.props})"
 
     @override
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, LeafNode):
             return False
         if self.tag is not None:
-            return self.tag == other.tag and self.value == other.value and self.props == other.props
-        else:
-            return self.value == other.value and self.props == other.props
+            return (self.tag == other.tag
+            and self.value == other.value
+            and self.props == other.props)
+        return self.value == other.value and self.props == other.props
+
+    @override
+    def __hash__(self) -> int:
+        message = "LeafNodes should never be hashed."
+        raise TypeError(message)
 
 
 class ParentNode(HTMLNode):
     def __init__(
         self,
         tag: str | None,
-        children: list[HTMLNode] | None = None,
-        props: dict[str, str] | None = None
-    ):
+        children: Sequence[HTMLNode] | None = None,
+        props: dict[str, str] | None = None,
+    ) -> None:
         super().__init__(tag=tag, value=None, children=children, props=props)
+
     @override
     def to_html(self) -> str:
         if self.tag is None:
-            raise ValueError("No tag")
+            error1 = "No tag"
+            raise ValueError(error1)
         if self.children is None:
-            raise ValueError("No children")
+            error2 = "No children"
+            raise ValueError(error2)
         if self.children == []:
-            raise ValueError("List of children is empty")
-        html_string = f'<{self.tag}{self.props_to_html()}>'
+            error3 = "List of children is empty"
+            raise ValueError(error3)
+        html_string = f"<{self.tag}{self.props_to_html()}>"
         for child in self.children:
                html_string += child.to_html()
         html_string += f"</{self.tag}>"

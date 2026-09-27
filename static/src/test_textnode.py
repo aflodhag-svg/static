@@ -80,7 +80,7 @@ class TestTextNode(unittest.TestCase):
     def test_text_invalid_type(self):
         node = TextNode("This is a text node", TextType.ITALIC)
         node.text_type = "help" # type: ignore[assignment]
-        with self.assertRaises(ValueError):
+        with self.assertRaises(AssertionError):
             text_node_to_html_node(node)
 
 

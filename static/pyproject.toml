@@ -1,2 +1,12 @@
 [tool.ruff]
+extend-exclude = ["venv"]
+target-version = "py312"  # or your installed Python version
+line-length = 90
 src = ["src"]
+ lint.select = ["ALL"]
+ lint.ignore = [
+     "D",
+     "CPY"   ]
+ exclude = [
+     "**/test_*.py",
+ ]
