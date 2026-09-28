@@ -1,5 +1,5 @@
 [tool.ruff]
-extend-exclude = ["venv"]
+extend-exclude = [".venv"]
 target-version = "py312"  # or your installed Python version
 line-length = 90
 src = ["src"]
@@ -10,3 +10,28 @@ src = ["src"]
  exclude = [
      "**/test_*.py",
  ]
+
+
+ [tool.basedpyright]
+ # Includes and Excludes
+ include = ["src"]
+ exclude = [
+     "**/node_modules",
+     "**/__pycache__",
+     ".venv"
+ ]
+
+ # Virtual Environment Setup
+ venvPath = "."
+ venv = ".venv"
+ pythonVersion = "3.12"
+
+ # 1. Enable Strict Mode
+ typeCheckingMode = "strict"
+
+ # 2. Override / Ignore Specific Rules Here
+ # Options available: "none" (ignore), "warning", "information", or "error"
+ reportUnnecessaryComparison = "none"
+ reportUnreachable = "warning"
+ reportMissingTypeStubs = "none"
+ reportImplicitRelativeImport = false
